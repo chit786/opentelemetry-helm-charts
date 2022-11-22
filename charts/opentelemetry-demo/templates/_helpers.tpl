@@ -20,6 +20,7 @@ helm.sh/chart: {{ include "otel-demo.chart" . }}
 {{ include "otel-demo.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/part-of: opentelemetry-demo
 app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -33,6 +34,7 @@ app.kubernetes.io/name: {{ include "otel-demo.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .name }}
 app.kubernetes.io/component: {{ .name}}
+app: {{ .name}}
 {{- end}}
 {{- end }}
 
