@@ -40,10 +40,14 @@ spec:
           env:
             - name: COLLECTOR_OTLP_ENABLED
               value: "true"
+            - name: COLLECTOR_ZIPKIN_HOST_PORT
+              value: ":9411"
           ports:
             - containerPort: 4317
               protocol: TCP
             - containerPort: 16686
+              protocol: TCP
+            - containerPort: 9411
               protocol: TCP
           resources:
             {{- .Values.observability.jaeger.resources | toYaml | nindent 12 }}
@@ -66,6 +70,10 @@ spec:
       port: 4317
       protocol: TCP
       targetPort: 4317
+    - name: zipkin
+      port: 9411
+      protocol: TCP
+      targetPort: 9411
   selector:
       {{- include "otel-demo.selectorLabels" . | nindent 4 }}
 {{- end }}
